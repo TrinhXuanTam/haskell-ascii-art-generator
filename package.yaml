@@ -1,10 +1,10 @@
 name:                ascii-art-generator
 version:             0.1.0.0
-github:              "githubuser/ascii-art-generator"
+github:              "trinhxu2/ascii-art-generator"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2023 Author name here"
+author:              "Xuan Tam Trinh"
+maintainer:          "trinhxu2@fit.cvut.cz"
+copyright:           "2023 Xuan Tam Trinh"
 
 extra-source-files:
 - README.md
