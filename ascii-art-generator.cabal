@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      AsciiArt.AsciiImage
       AsciiArt.Filters.Brightness
       AsciiArt.Filters.Filter
       AsciiArt.Filters.Flip
@@ -32,6 +33,7 @@ library
       AsciiArt.Filters.Rotate
       AsciiArt.Filters.Scale
       AsciiArt.Generator
+      Loaders.Image
       Loaders.JpgLoader
       Loaders.Loader
       Loaders.PngLoader
@@ -45,9 +47,10 @@ library
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , optparse-applicative
   default-language: Haskell2010
 
-executable ascii-art-generator-exe
+executable ascii-art-generator
   main-is: Main.hs
   other-modules:
       Paths_ascii_art_generator
@@ -57,6 +60,7 @@ executable ascii-art-generator-exe
   build-depends:
       ascii-art-generator
     , base >=4.7 && <5
+    , optparse-applicative
   default-language: Haskell2010
 
 test-suite ascii-art-generator-test
@@ -70,4 +74,5 @@ test-suite ascii-art-generator-test
   build-depends:
       ascii-art-generator
     , base >=4.7 && <5
+    , optparse-applicative
   default-language: Haskell2010
