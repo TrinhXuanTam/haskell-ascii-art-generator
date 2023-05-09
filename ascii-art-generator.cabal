@@ -24,6 +24,20 @@ source-repository head
   location: https://github.com/trinhxu2/ascii-art-generator
 
 library
+  exposed-modules:
+      AsciiArt.Filters.Brightness
+      AsciiArt.Filters.Filter
+      AsciiArt.Filters.Flip
+      AsciiArt.Filters.Invert
+      AsciiArt.Filters.Rotate
+      AsciiArt.Filters.Scale
+      AsciiArt.Generator
+      Loaders.JpgLoader
+      Loaders.Loader
+      Loaders.PngLoader
+      Output.CliOutput
+      Output.FileOutput
+      Output.Output
   other-modules:
       Paths_ascii_art_generator
   hs-source-dirs:

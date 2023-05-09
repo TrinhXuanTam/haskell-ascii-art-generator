@@ -1,0 +1,1 @@
+module Loaders.JpgLoader where
