@@ -10,7 +10,14 @@ cache:
     - target
 
 stages:
+  - lint
   - test
+
+lint:
+  stage: lint
+  script:
+    - stack install hlint
+    - hlint app src test
 
 test:
   stage: test

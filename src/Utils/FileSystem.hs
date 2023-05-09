@@ -13,4 +13,4 @@ getFileSuffix filePath =
 
 -- A function to check if a file exists.
 fileExists :: FilePath -> IO Bool
-fileExists filePath = doesFileExist filePath
+fileExists = doesFileExist 
