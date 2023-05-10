@@ -25,6 +25,8 @@ source-repository head
 
 library
   exposed-modules:
+      CLI.Controller
+      CLI.Parser
       Filters.Filter
       Loaders.JuicyPixelsTransformer
       Loaders.Loader

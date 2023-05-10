@@ -1,4 +1,4 @@
-module Types.Exception where
+module Types.Exception (MyException(..)) where
 
 import Control.Exception
 

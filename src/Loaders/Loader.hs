@@ -1,11 +1,12 @@
-module Loaders.Loader where
+module Loaders.Loader (
+  Loader(..),
+  ImageLoader(..)
+) where
 
 import Control.Exception
 import Loaders.JuicyPixelsTransformer
 import Types.Exception
 import Types.Image
-import Utils.Control
-import Utils.FileSystem
 
 import Codec.Picture.Jpg (decodeJpeg)
 import Codec.Picture.Png (decodePng)
@@ -25,8 +26,8 @@ class ImageLoader a where
 
 -- | Loader instance for JpgLoader
 instance ImageLoader Loader where
-  loadImage (JpgLoader path) = do
-    result <- decodeJpeg <$> BS.readFile path
+  loadImage (JpgLoader filePath) = do
+    result <- decodeJpeg <$> BS.readFile filePath
     case result of
       Left err ->
         throw (ImageDecodeException ("Failed to read jpg image: " ++ err))
@@ -35,8 +36,9 @@ instance ImageLoader Loader where
           Left err ->
             throw (ImageDecodeException ("Unsupported image format: " ++ err))
           Right myImg -> return myImg
-  loadImage (PngLoader path) = do
-    result <- decodePng <$> BS.readFile path
+
+  loadImage (PngLoader filePath) = do
+    result <- decodePng <$> BS.readFile filePath
     case result of
       Left err ->
         throw (ImageDecodeException ("Failed to read png image: " ++ err))

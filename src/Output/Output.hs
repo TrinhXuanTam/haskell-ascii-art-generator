@@ -1,12 +1,10 @@
-module Output.Output where
+module Output.Output ( Output(..), AsciiArtOutput(..) ) where
 
 import System.IO
 import Types.AsciiImage
 
 data Output
-  = FileOutput
-      { path :: FilePath
-      }
+  = FileOutput FilePath
   | CliOutput
 
 class AsciiArtOutput a where
@@ -14,7 +12,7 @@ class AsciiArtOutput a where
 
 instance AsciiArtOutput Output where
   outputAsciiArt CliOutput asciiImage = putStrLn (prettyPrint asciiImage)
-  outputAsciiArt (FileOutput path) asciiImage = do
-    handle <- openFile path WriteMode
+  outputAsciiArt (FileOutput outputPath) asciiImage = do
+    handle <- openFile outputPath WriteMode
     hPutStr handle (prettyPrint asciiImage)
     hClose handle

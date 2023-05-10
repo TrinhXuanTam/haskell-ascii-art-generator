@@ -1,4 +1,4 @@
-module Utils.Control where
+module Utils.Control (exitWithFailure, conditionalExitWithFailure) where
 
 import System.Exit (exitFailure)
 

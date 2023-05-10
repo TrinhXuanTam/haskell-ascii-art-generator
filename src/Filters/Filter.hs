@@ -1,13 +1,13 @@
-module Filters.Filter where
+module Filters.Filter (Axis(..), Filter(..), FilterApplicable(..)) where
 
 data Axis = AxisX
           | AxisY
 
 data Filter = InvertFilter
-            | FlipFilter { axis :: Axis }
-            | RotateFilter { degrees :: Int }
-            | ScaleFilter { factor :: Double }
-            | BrightnessFilter { value :: Int }
+            | FlipFilter Axis 
+            | RotateFilter Int
+            | ScaleFilter Double
+            | BrightnessFilter Int
 
 class FilterApplicable a where
     applyFilter :: a -> Filter -> a

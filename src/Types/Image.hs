@@ -1,4 +1,6 @@
-module Types.Image where
+{-# LANGUAGE TypeSynonymInstances #-}
+
+module Types.Image ( Pixel(..), Image(..), ToPixel(..) ) where
 
 import Types.AsciiImage
 
@@ -22,13 +24,14 @@ class ToPixel a where
 -- Convert a Pixel to a greyscale value using the formula 0.3 * red + 0.59 * green + 0.11 * blue
 pixelToGreyscale :: Pixel -> Int
 pixelToGreyscale pixel =
-  round
-    (0.3 * fromIntegral (red pixel) + 0.59 * fromIntegral (green pixel) +
-     0.11 * fromIntegral (blue pixel))
+  let r = fromIntegral (red pixel)
+      g = fromIntegral (green pixel)
+      b = fromIntegral (blue pixel)
+  in round (0.3 * r + 0.59 * g + 0.11 * b :: Double)
 
 -- Convert an Image to a greyscale representation
 toGreyscale :: Image -> [[Int]]
 toGreyscale img = map (map pixelToGreyscale) (pixels img)
 
-instance ToAsciiArt Image where
+instance AsciiArtConvertible Image where
   toAsciiArt = AsciiImage . toGreyscale

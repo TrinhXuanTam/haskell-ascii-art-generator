@@ -1,4 +1,4 @@
-module Utils.FileSystem where
+module Utils.FileSystem (getFileExtension, fileExists) where
 
 import System.Directory (doesFileExist)
 
