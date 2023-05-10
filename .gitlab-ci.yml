@@ -10,8 +10,17 @@ cache:
     - target
 
 stages:
+  - build
   - lint
   - test
+
+build:
+  stage: build
+  before_script:
+    - apt update
+    - apt -qq -y install liblzma-dev
+  script:
+    - stack build --system-ghc
 
 lint:
   stage: lint
