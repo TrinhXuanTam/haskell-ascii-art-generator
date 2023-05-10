@@ -1,6 +1,6 @@
 module Types.AsciiImage where
 
-data AsciiImage = AsciiImage {
+newtype AsciiImage = AsciiImage {
     greyScaleValues :: [[Int]]
 } deriving (Show, Eq)
 

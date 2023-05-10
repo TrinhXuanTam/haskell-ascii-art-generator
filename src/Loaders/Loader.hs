@@ -18,7 +18,6 @@ data Loader = PngLoader { path :: FilePath }
 class ImageLoader a where
   loadImage :: a -> IO Image
 
-
 -- | Loader instance for JpgLoader
 instance ImageLoader Loader where
   loadImage (JpgLoader path) = do

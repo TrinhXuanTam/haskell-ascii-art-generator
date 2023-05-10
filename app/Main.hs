@@ -10,13 +10,13 @@ import Types.Image
 import Types.AsciiImage
 import Types.Exception
 import Output.Output
+import Control.Exception
+import System.IO
 
 import Data.List (intercalate)
 import Control.Monad (unless, guard)
 import System.Exit (exitFailure)
 import Data.Maybe (isNothing, fromJust, isJust)
-import Control.Exception
-import System.IO
 
 -- A data type to hold the command line options
 data Options = Options
@@ -74,16 +74,15 @@ handleOutput options asciiImage = do
 
   -- call outputAsciiArt on each element of outputhandlers
 handleAsciiArt :: Options -> Image -> AsciiImage
-handleAsciiArt options image = 
-   toAsciiArt $ image
+handleAsciiArt options image = toAsciiArt
   
 
 -- | Handle exceptions related to the application logic and print error messages to stderr
 handleException :: MyException -> IO ()
 handleException e = do
     case e of
-        ImageDecodeException msg -> hPutStrLn stderr $ msg
-        ImageLoadException msg -> hPutStrLn stderr $ msg
+        ImageDecodeException msg -> hPutStrLn stderr msg
+        ImageLoadException msg -> hPutStrLn stderr msg
     exitFailure
 
 

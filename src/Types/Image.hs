@@ -8,7 +8,7 @@ data Pixel = Pixel
   , blue :: Int
   } deriving (Eq, Show)
 
-data Image = Image
+newtype Image = Image
   { pixels :: [[Pixel]]
   } deriving (Eq, Show)
 

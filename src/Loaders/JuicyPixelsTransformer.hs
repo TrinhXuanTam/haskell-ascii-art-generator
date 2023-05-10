@@ -3,12 +3,12 @@
 module Loaders.JuicyPixelsTransformer where
 
 import Utils.Control
+import Types.Exception
 import Control.Exception
+import Codec.Picture.Types
 
 import Data.Either (isLeft, fromRight)
 import Control.Monad (when)
-import Types.Exception
-import Codec.Picture.Types
 
 import qualified Types.Image as IMG
 
