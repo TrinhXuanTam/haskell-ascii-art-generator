@@ -5,6 +5,7 @@ module Main
   ) where
 
 import Control.Exception
+import Filters.Filter
 import Loaders.Loader
 import Options.Applicative
 import Output.Output
@@ -26,6 +27,11 @@ data Options =
     { sourcePath :: FilePath
     , outputToConsole :: Bool
     , outputFile :: Maybe FilePath
+    , flipAxis :: Maybe Axis
+    , rotationDegrees :: Maybe Int
+    , scalingFactor :: Maybe Double
+    , brightnessValue :: Maybe Int
+    , invert :: Bool
     }
 
 -- A parser for the command line options
@@ -38,7 +44,33 @@ optionsParser =
   optional
     (strOption
        (long "output-file" <>
-        metavar "FILE" <> help "The path to the output file"))
+        metavar "FILE" <> help "The path to the output file")) <*>
+  optional
+    (option
+       (eitherReader
+          (\s ->
+             case s of
+               "x" -> Right (AxisX)
+               "y" -> Right (AxisY)
+               _ -> Left "Invalid axis value. Must be 'x' or 'y'."))
+       (long "flip" <>
+        metavar "AXIS" <> help "Flip the image along the X or Y axis")) <*>
+  optional
+    (option
+       auto
+       (long "rotate" <>
+        metavar "DEGREES" <> help "Rotate the image by the specified degrees")) <*>
+  optional
+    (option
+       auto
+       (long "scale" <>
+        metavar "FACTOR" <> help "Scale the image by the specified factor")) <*>
+  optional
+    (option
+       auto
+       (long "brightness" <>
+        metavar "VALUE" <> help "Adjust the brightness of the image")) <*>
+  switch (long "invert" <> help "Invert the colors of the image")
 
 -- | List of supported loaders
 supportedLoaders :: [(String, FilePath -> Loader)]
@@ -69,14 +101,20 @@ handleOutput :: Options -> AsciiImage -> IO ()
 handleOutput options asciiImage = do
   let outputHandlers =
         [CliOutput | outputToConsole options] ++
-        [ FileOutput (fromJust (outputFile options))
-        | isJust (outputFile options)
-        ]
+        [FileOutput outputPath | Just outputPath <- [outputFile options]]
   mapM_ (`outputAsciiArt` asciiImage) outputHandlers
-  -- call outputAsciiArt on each element of outputhandlers
 
+-- call outputAsciiArt on each element of outputhandlers
 handleAsciiArt :: Options -> Image -> AsciiImage
-handleAsciiArt options = toAsciiArt
+handleAsciiArt options image =
+  let asciiImage = toAsciiArt image
+      imageFilters =
+        [InvertFilter | invert options] ++
+        [FlipFilter axis | Just axis <- [flipAxis options]] ++
+        [RotateFilter degrees | Just degrees <- [rotationDegrees options]] ++
+        [BrightnessFilter value | Just value <- [brightnessValue options]] ++
+        [ScaleFilter factor | Just factor <- [scalingFactor options]]
+   in foldl applyFilter asciiImage imageFilters
 
 -- | Handle exceptions related to the application logic and print error messages to stderr
 handleException :: MyException -> IO ()
