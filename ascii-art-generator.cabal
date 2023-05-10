@@ -35,11 +35,13 @@ library
       AsciiArt.Generator
       Loaders.Image
       Loaders.JpgLoader
+      Loaders.JuicyPixelsTransformer
       Loaders.Loader
       Loaders.PngLoader
       Output.CliOutput
       Output.FileOutput
       Output.Output
+      Types.Exception
       Utils.Control
       Utils.FileSystem
   other-modules:
@@ -48,7 +50,9 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      JuicyPixels
+    , base >=4.7 && <5
+    , bytestring
     , directory
     , optparse-applicative
   default-language: Haskell2010
@@ -61,8 +65,10 @@ executable ascii-art-generator
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      ascii-art-generator
+      JuicyPixels
+    , ascii-art-generator
     , base >=4.7 && <5
+    , bytestring
     , directory
     , optparse-applicative
   default-language: Haskell2010
@@ -76,8 +82,10 @@ test-suite ascii-art-generator-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      ascii-art-generator
+      JuicyPixels
+    , ascii-art-generator
     , base >=4.7 && <5
+    , bytestring
     , directory
     , optparse-applicative
   default-language: Haskell2010
