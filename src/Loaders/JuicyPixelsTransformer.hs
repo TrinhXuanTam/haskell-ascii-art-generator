@@ -2,7 +2,6 @@
 
 module Loaders.JuicyPixelsTransformer where
 
-import Loaders.Loader
 import Utils.Control
 import Control.Exception
 
@@ -11,10 +10,8 @@ import Control.Monad (when)
 import Types.Exception
 import Codec.Picture.Types
 
-import qualified Loaders.Image as IMG
+import qualified Types.Image as IMG
 
-convertImageToIMG :: (Pixel a, IMG.ToPixel a) => Image a -> IMG.Image
-convertImageToIMG img = IMG.Image [[IMG.toPixel (pixelAt img x y) | x <- [0..imageWidth img - 1]] | y <- [0..imageHeight img - 1]]
 
 convertDynamicImage :: DynamicImage -> Either String IMG.Image
 convertDynamicImage (ImageY8 img) = Right $ convertImageToIMG img
@@ -32,6 +29,9 @@ convertDynamicImage (ImageYCbCr8 img) = Right $ convertImageToIMG img
 convertDynamicImage (ImageCMYK8 img) = Right $ convertImageToIMG img
 convertDynamicImage (ImageCMYK16 img) = Right $ convertImageToIMG img
 convertDynamicImage _ = Left "Unsupported image format"
+
+convertImageToIMG :: (Pixel a, IMG.ToPixel a) => Image a -> IMG.Image
+convertImageToIMG img = IMG.Image [[IMG.toPixel (pixelAt img x y) | x <- [0..imageWidth img - 1]] | y <- [0..imageHeight img - 1]]
 
 instance IMG.ToPixel Pixel8 where
   toPixel p = let v = fromIntegral p in IMG.Pixel v v v

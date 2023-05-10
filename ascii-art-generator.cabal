@@ -25,23 +25,13 @@ source-repository head
 
 library
   exposed-modules:
-      AsciiArt.AsciiImage
-      AsciiArt.Filters.Brightness
-      AsciiArt.Filters.Filter
-      AsciiArt.Filters.Flip
-      AsciiArt.Filters.Invert
-      AsciiArt.Filters.Rotate
-      AsciiArt.Filters.Scale
-      AsciiArt.Generator
-      Loaders.Image
-      Loaders.JpgLoader
+      Filters.Filter
       Loaders.JuicyPixelsTransformer
       Loaders.Loader
-      Loaders.PngLoader
-      Output.CliOutput
-      Output.FileOutput
       Output.Output
+      Types.AsciiImage
       Types.Exception
+      Types.Image
       Utils.Control
       Utils.FileSystem
   other-modules:

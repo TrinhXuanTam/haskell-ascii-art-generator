@@ -1,1 +1,0 @@
-module AsciiArt.Generator where
