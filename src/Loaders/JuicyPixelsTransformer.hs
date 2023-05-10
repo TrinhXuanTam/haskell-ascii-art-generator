@@ -12,6 +12,7 @@ convertDynamicImage (ImageRGB16 img) = Right $ convertImageToIMG img
 convertDynamicImage (ImageRGBF img) = Right $ convertImageToIMG img
 convertDynamicImage (ImageRGBA8 img) = Right $ convertImageToIMG img
 convertDynamicImage (ImageRGBA16 img) = Right $ convertImageToIMG img
+convertDynamicImage (ImageYCbCr8 img) = Right $ convertImageToIMG img
 convertDynamicImage _ = Left "Unsupported image format"
 
 convertImageToIMG :: (Pixel a, IMG.ToPixel a) => Image a -> IMG.Image
@@ -46,3 +47,9 @@ instance IMG.ToPixel PixelRGBA16 where
       (fromIntegral r `div` 256)
       (fromIntegral g `div` 256)
       (fromIntegral b `div` 256)
+
+
+instance IMG.ToPixel PixelYCbCr8 where
+  toPixel p =
+    let (PixelRGB8 r g b) = convertPixel p
+     in IMG.Pixel (fromIntegral r) (fromIntegral g) (fromIntegral b)
