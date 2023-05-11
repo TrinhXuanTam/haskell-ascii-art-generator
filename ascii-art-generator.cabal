@@ -72,6 +72,9 @@ test-suite ascii-art-generator-test
       AsciiImageSpec
       FileSystemSpec
       ImageSpec
+      JuicyPixelsTransformerSpec
+      LoaderSpec
+      OutputSpec
       Paths_ascii_art_generator
   hs-source-dirs:
       test
@@ -85,4 +88,5 @@ test-suite ascii-art-generator-test
     , directory
     , hspec
     , optparse-applicative
+    , temporary
   default-language: Haskell2010

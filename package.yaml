@@ -63,3 +63,4 @@ tests:
     - ascii-art-generator
     - hspec
     - QuickCheck
+    - temporary
