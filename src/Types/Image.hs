@@ -16,6 +16,8 @@ module Types.Image
   ( Pixel(..)
   , Image(..)
   , ToPixel(..)
+  , pixelToGreyscale
+  , toGreyscale
   ) where
 
 import Types.AsciiImage

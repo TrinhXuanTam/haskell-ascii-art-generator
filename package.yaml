@@ -61,3 +61,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ascii-art-generator
+    - hspec
+    - QuickCheck

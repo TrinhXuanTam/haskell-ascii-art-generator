@@ -14,6 +14,8 @@ module Types.AsciiImage
   ( AsciiImage(..)
   , AsciiArtConvertible(..)
   , prettyPrint
+  , greyscaleCharacters
+  , greyscaleToChar
   ) where
 
 import Data.List (transpose)
