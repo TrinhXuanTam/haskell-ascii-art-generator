@@ -3,15 +3,18 @@ image: haskell:8.8.4
 variables:
   STACK_ROOT: "${CI_PROJECT_DIR}/.stack"
 
-cache:
-  paths:
-    - .stack
-    - .stack-work
-    - target
-
 stages:
+  - build
   - lint
   - test
+
+build:
+  stage: build
+  before_script:
+    - apt update
+    - apt -qq -y install liblzma-dev
+  script:
+    - stack build --system-ghc
 
 lint:
   stage: lint
