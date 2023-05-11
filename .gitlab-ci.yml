@@ -1,7 +1,13 @@
-image: haskell:8.8.4
+image: haskell:9.2.5
 
 variables:
   STACK_ROOT: "${CI_PROJECT_DIR}/.stack"
+
+cache:
+  paths:
+    - .stack
+    - .stack-work
+    - target
 
 stages:
   - build
