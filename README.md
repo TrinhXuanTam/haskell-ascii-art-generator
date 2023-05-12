@@ -92,7 +92,9 @@ The invert filter creates a negative version of the image.
 
 ## Coding style
 
-For consistent code style across the project, hindent is used, a Haskell pretty printer.
+### Formatting
+
+For consistent code style across the project, hindent, a Haskell pretty printer, is used.
 
 Install hindent with this command:
 
@@ -105,6 +107,11 @@ To format all Haskell code in the project the following command is used:
 ```
 find . -name '*.hs' -exec hindent {} \;
 ```
+
+### Linting
+
+Hlint is a tool that suggests possible improvements to your Haskell code. It is used as part of the CI/CD process to ensure that all code in the project meets Haskell quality standards.
+
 
 ## Example
 
