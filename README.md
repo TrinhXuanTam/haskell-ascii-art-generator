@@ -113,6 +113,23 @@ find . -name '*.hs' -exec hindent {} \;
 Hlint is a tool that suggests possible improvements to your Haskell code. It is used as part of the CI/CD process to ensure that all code in the project meets Haskell quality standards.
 
 
+### Documentation
+
+The source code is annotated with Haddock compatible comments to ensure that the functionality of each module, function, and data type is clearly understood.
+
+In order to generate the documentation from these comments, you can use the haddock tool. If it's not already installed, you can install it with the following command:
+
+```
+stack install haddock
+```
+
+To generate the documentation, navigate to the root directory of the project and run:
+```
+stack haddock
+```
+
+This will generate an HTML version of the documentation. The output directory will be displayed in the command line once the process is complete.
+
 ## Example
 
 ```
