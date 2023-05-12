@@ -52,9 +52,8 @@ prettyPrint img =
 
 -- | 'FilterApplicable' instance for 'AsciiImage'.
 -- Each filter is applied to the greyscale values of the image in a different way.
-instance FilterApplicable AsciiImage
+instance FilterApplicable AsciiImage where
   -- InvertFilter inverts the colors of the image by subtracting each greyscale value from 255.                    
-                                                                                                                    where
   applyFilter (AsciiImage values) InvertFilter =
     AsciiImage $ map (map (255 -)) values
   -- FlipFilter flips the image along the X or Y axis by reversing the rows or columns of greyscale values.
@@ -77,27 +76,24 @@ instance FilterApplicable AsciiImage
             270 -> transpose (map reverse values)
             _ -> values
      in AsciiImage rotatedValues
-  -- ScaleFilter scales the image by a certain factor.
+  -- Applies a 'ScaleFilter' to an 'AsciiImage'.
   applyFilter (AsciiImage values) (ScaleFilter factor) =
+    -- Original and new dimensions are calculated based on the scaling factor.
     let origHeight = length values
-        origWidth =
-          if origHeight == 0
-            then 0
-            else length (head values)
+        origWidth = if origHeight == 0 then 0 else length (head values)
         newHeight = max 1 (round $ fromIntegral origHeight * factor) :: Int
         newWidth = max 1 (round $ fromIntegral origWidth * factor) :: Int
+        
+        -- Function to scale a coordinate from the new image's size to the original image's size.
         scaleCoordinate origSize newSize coord =
-          min
-            (origSize - 1)
-            (floor
-               (fromIntegral coord * fromIntegral origSize /
-                fromIntegral newSize :: Double)) :: Int
+          min (origSize - 1) (floor (fromIntegral coord * fromIntegral origSize / fromIntegral newSize :: Double)) :: Int
+  
+        -- Function to fetch the greyscale value for a pixel in the new image.
         getPixel y x =
           let origX = scaleCoordinate origWidth newWidth x
               origY = scaleCoordinate origHeight newHeight y
-           in (values !! origY) !! origX
-        newValues =
-          [ [getPixel y x | x <- [0 .. newWidth - 1]]
-          | y <- [0 .. newHeight - 1]
-          ]
-     in AsciiImage newValues
+          in (values !! origY) !! origX
+        
+        -- Build the new image by calculating the greyscale value for each pixel.
+        newValues = [[getPixel y x | x <- [0 .. newWidth - 1]] | y <- [0 .. newHeight - 1]]
+    in AsciiImage newValues

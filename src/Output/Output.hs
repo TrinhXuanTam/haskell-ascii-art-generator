@@ -23,16 +23,14 @@ data Output
   | CliOutput -- ^ 'CliOutput' constructor represents console output.
 
 -- | 'AsciiArtOutput' typeclass provides a common interface for outputting ASCII art.
-class AsciiArtOutput a
+class AsciiArtOutput a  where
   -- | 'outputAsciiArt' is a function that takes an instance of a class implementing 'AsciiArtOutput' and an 'AsciiImage' 
   --   and performs IO operation to output the image.
-  where
   outputAsciiArt :: a -> AsciiImage -> IO ()
 
 -- | 'AsciiArtOutput' instance for 'Output' type.
-instance AsciiArtOutput Output
-  -- | For 'CliOutput', 'outputAsciiArt' will print the ASCII art to the console using 'putStrLn'.
-                                                                                                   where
+instance AsciiArtOutput Output where
+  -- | For 'CliOutput', 'outputAsciiArt' will print the ASCII art to the console using 'putStrLn'.                                                              
   outputAsciiArt CliOutput asciiImage = putStrLn (prettyPrint asciiImage)
   -- | For 'FileOutput', 'outputAsciiArt' will open the file at the specified path, write the ASCII art into the file, 
   --   and then close the file handle.

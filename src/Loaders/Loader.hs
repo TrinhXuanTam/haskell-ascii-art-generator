@@ -34,9 +34,8 @@ class ImageLoader a where
   loadImage :: a -> IO Image
 
 -- | A typeclass for image loaders. Implementations should provide a way to load an image from a file.
-instance ImageLoader Loader
-  -- | Load a jpg image from a file. Throws an 'ImageDecodeException' if the file can't be read or the image format is unsupported.
-                                                                                                                                    where
+instance ImageLoader Loader where
+  -- | Load a jpg image from a file. Throws an 'ImageDecodeException' if the file can't be read or the image format is unsupported.                                                                                                
   loadImage (JpgLoader filePath) = do
     result <- decodeJpeg <$> BS.readFile filePath
     case result of
