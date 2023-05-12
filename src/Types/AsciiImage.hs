@@ -52,8 +52,9 @@ prettyPrint img =
 
 -- | 'FilterApplicable' instance for 'AsciiImage'.
 -- Each filter is applied to the greyscale values of the image in a different way.
-instance FilterApplicable AsciiImage where
+instance FilterApplicable AsciiImage
   -- InvertFilter inverts the colors of the image by subtracting each greyscale value from 255.                    
+                                                                                                                    where
   applyFilter (AsciiImage values) InvertFilter =
     AsciiImage $ map (map (255 -)) values
   -- FlipFilter flips the image along the X or Y axis by reversing the rows or columns of greyscale values.

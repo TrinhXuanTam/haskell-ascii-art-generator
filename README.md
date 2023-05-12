@@ -90,6 +90,22 @@ Adjusts the brightness of the final image.
 ### Invert
 The invert filter creates a negative version of the image.
 
+## Coding style
+
+For consistent code style across the project, hindent is used, a Haskell pretty printer.
+
+Install hindent with this command:
+
+```
+stack install hindent
+```
+
+To format all Haskell code in the project the following command is used:
+
+```
+find . -name '*.hs' -exec hindent {} \;
+```
+
 ## Example
 
 ```

@@ -1,13 +1,15 @@
-module Main (main) where
+module Main
+  ( main
+  ) where
 
 import Test.Hspec
 
-import qualified FileSystemSpec
 import qualified AsciiImageSpec
+import qualified FileSystemSpec
 import qualified ImageSpec
-import qualified OutputSpec
-import qualified LoaderSpec
 import qualified JuicyPixelsTransformerSpec
+import qualified LoaderSpec
+import qualified OutputSpec
 
 main :: IO ()
 main = hspec spec
@@ -19,4 +21,6 @@ spec = do
   describe "ASCII Image Operations" AsciiImageSpec.spec
   describe "Output Operations" OutputSpec.spec
   describe "Image Loading Operations" LoaderSpec.spec
-  describe "JuicyPixels Transformation Operations" JuicyPixelsTransformerSpec.spec
+  describe
+    "JuicyPixels Transformation Operations"
+    JuicyPixelsTransformerSpec.spec

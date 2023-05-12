@@ -1,9 +1,11 @@
-module OutputSpec (spec) where
+module OutputSpec
+  ( spec
+  ) where
 
-import Test.Hspec
-import System.IO.Temp
-import System.IO
 import Output.Output
+import System.IO
+import System.IO.Temp
+import Test.Hspec
 import Types.AsciiImage
 
 spec :: Spec
@@ -17,7 +19,6 @@ spec = do
         outputAsciiArt (FileOutput tempFile) asciiImage
         actualOutput <- readFile tempFile
         actualOutput `shouldBe` expectedOutput
-        
     it "should overwrite the content of a file" $ do
       let asciiImage = AsciiImage [[0, 50], [255, 200]]
       let expectedOutput = " :\n@%\n"
